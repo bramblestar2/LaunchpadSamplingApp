@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LaunchpadSamplingApp.ViewModels"
+             xmlns:components="using:LaunchpadSamplingApp.Components"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LaunchpadSamplingApp.Views.MainView"
              x:DataType="vm:MainViewModel">
@@ -12,10 +13,10 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
+  
 
   <Grid ColumnDefinitions="Auto,*">
-    <Button Content="{Binding Greeting}" Grid.Column="0"/>
-    <Button Content="{Binding StartUp}" Grid.Column="1"/>
+    <components:LaunchpadButton/>
   </Grid>
 
 </UserControl>
