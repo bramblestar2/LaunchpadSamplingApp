@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:LaunchpadSamplingApp.Components">
   <Design.PreviewWith>
-    <controls:LaunchpadButton />
+    <controls:LaunchpadButton/>
   </Design.PreviewWith>
 
   <Style Selector="controls|LaunchpadButton">
@@ -23,6 +23,9 @@
       </ControlTemplate>
     </Setter>
   </Style>
-  
+
+  <Style Selector="controls|LaunchpadButton:disabled">
+    <Setter Property="Background" Value="#303030"/>
+  </Style>
   
 </Styles>
