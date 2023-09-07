@@ -1,31 +1,15 @@
-<Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:LaunchpadSamplingApp.Components">
-  <Design.PreviewWith>
-    <controls:LaunchpadButton/>
-  </Design.PreviewWith>
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="50" d:DesignHeight="50"
+             x:Class="LaunchpadSamplingApp.Components.LaunchpadButton">
 
-  <Style Selector="controls|LaunchpadButton">
-    <!-- Set Defaults -->
-    <Setter Property="Background" Value="#404040"/>
-    <Setter Property="Width" Value="20"/>
-    <Setter Property="Height" Value="20"/>
-    <Setter Property="CornerRadius" Value="2"/>
+
+  <Border CornerRadius="3"
+          Background="#202020"
+          x:Name="PART_Border">
     
-    <Setter Property="Template">
-      <ControlTemplate>
-        <Border Width="{TemplateBinding Width}"
-                Height="{TemplateBinding Height}"
-                CornerRadius="{TemplateBinding CornerRadius}"
-                Background="{TemplateBinding Background}">
-
-        </Border>
-      </ControlTemplate>
-    </Setter>
-  </Style>
-
-  <Style Selector="controls|LaunchpadButton:disabled">
-    <Setter Property="Background" Value="#303030"/>
-  </Style>
+  </Border>
   
-</Styles>
+</UserControl>

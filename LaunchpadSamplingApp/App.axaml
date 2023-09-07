@@ -6,7 +6,5 @@
 
     <Application.Styles>
       <FluentTheme/>
-      
-      <StyleInclude Source="Components/LaunchpadButton.axaml"/>
     </Application.Styles>
 </Application>
