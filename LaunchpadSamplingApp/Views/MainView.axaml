@@ -15,8 +15,6 @@
 
   
 
-  <Grid ColumnDefinitions="Auto,*">
-    <components:LaunchpadButton/>
-  </Grid>
-
+  <components:LaunchpadButton Width="50" Height="50"/>
+  
 </UserControl>

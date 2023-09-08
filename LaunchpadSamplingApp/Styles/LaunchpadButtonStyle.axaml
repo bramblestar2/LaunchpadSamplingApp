@@ -1,0 +1,59 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:components="using:LaunchpadSamplingApp.Components">
+    <Design.PreviewWith>
+        <Border Padding="20">
+          <components:LaunchpadButton Width="50" Height="50"/>
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+  
+    <!-- Add Styles Here -->
+  
+
+  <Style Selector="components|LaunchpadButton">
+    
+    <Style Selector="^:onPointerEnter">
+      <Style Selector="^ > Border">
+        <Style.Animations>
+          <Animation Duration="0:0:0.1"
+                     FillMode="Forward">
+            <KeyFrame Cue="100%">
+              <Setter Property="Background" Value="{DynamicResource LaunchpadButtonHover}"/>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+
+
+    <Style Selector="^:onPointerLeave">
+      <Style Selector="^ > Border">
+        <Style.Animations>
+          <Animation Duration="0:0:0.1"
+                     FillMode="Forward">
+            <KeyFrame Cue="100%">
+              <Setter Property="Background" Value="#505050"/>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+
+
+    <Style Selector="^:onPointerPressed">
+      <Style Selector="^ > Border">
+        <Style.Animations>
+          <Animation Duration="0:0:0.2"
+                     PlaybackDirection="Alternate">
+            <KeyFrame Cue="20%">
+              <Setter Property="Background" Value="#303030"/>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+    
+  </Style>
+  
+</Styles>

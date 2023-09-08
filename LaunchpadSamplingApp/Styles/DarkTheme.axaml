@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+
+  <!--Base Colors-->
+  <SolidColorBrush x:Key="primaryBackgroundColor" Color="#606060"/>
+  <SolidColorBrush x:Key="secondaryBackgroundColor" Color="#6A6A6A"/>
+
+
+  <!--Launchpad Colors-->
+  <SolidColorBrush x:Key="LaunchpadButtonIdle" Color="#505050"/>
+  <SolidColorBrush x:Key="LaunchpadButtonHover" Color="#404040"/>
+  <SolidColorBrush x:Key="LaunchpadButtonPressed" Color="#303030"/>
+  
+  <SolidColorBrush x:Key="LaunchpadPrimaryBackground" Color="#555555"/>
+  <SolidColorBrush x:Key="LaunchpadSecondaryBackground" Color="#454545"/>
+  
+</ResourceDictionary>

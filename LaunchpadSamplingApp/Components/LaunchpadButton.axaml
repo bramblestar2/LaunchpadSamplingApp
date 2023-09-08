@@ -7,9 +7,9 @@
 
 
   <Border CornerRadius="3"
-          Background="#202020"
+          Background="{DynamicResource LaunchpadButtonIdle}"
+          Width="50"
           x:Name="PART_Border">
     
   </Border>
-  
 </UserControl>
