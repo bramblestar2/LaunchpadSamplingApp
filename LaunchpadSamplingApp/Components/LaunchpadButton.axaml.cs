@@ -31,8 +31,6 @@ namespace LaunchpadSamplingApp.Components
         public LaunchpadButton()
         {
             InitializeComponent();
-
-            //PseudoClasses.Add(":onhover");
         }
 
 

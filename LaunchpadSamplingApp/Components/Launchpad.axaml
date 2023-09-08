@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+             x:Class="LaunchpadSamplingApp.Components.Launchpad">
+
+  <Border x:Name="PART_Border"
+          Background="{DynamicResource LaunchpadPrimaryBackground}"
+          CornerRadius="15">
+
+    <Grid x:Name="PART_Grid"
+          Margin="5">
+      
+    </Grid>
+    
+  </Border>
+</UserControl>
