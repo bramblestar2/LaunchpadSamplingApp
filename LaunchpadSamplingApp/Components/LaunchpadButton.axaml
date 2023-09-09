@@ -20,7 +20,8 @@
           <Animation Duration="0:0:0.1"
                      FillMode="Forward">
             <KeyFrame Cue="100%">
-              <Setter Property="Background" Value="{DynamicResource LaunchpadButtonHover}"/>
+              <Setter Property="Background" 
+                      Value="{DynamicResource LaunchpadButtonHover}"/>
             </KeyFrame>
           </Animation>
         </Style.Animations>
@@ -33,7 +34,8 @@
           <Animation Duration="0:0:0.1"
                      FillMode="Forward">
             <KeyFrame Cue="100%">
-              <Setter Property="Background" Value="{DynamicResource LaunchpadButtonIdle}"/>
+              <Setter Property="Background" 
+                      Value="{DynamicResource LaunchpadButtonIdle}"/>
             </KeyFrame>
           </Animation>
         </Style.Animations>
@@ -47,7 +49,36 @@
           <Animation Duration="0:0:0.2"
                      PlaybackDirection="Alternate">
             <KeyFrame Cue="20%">
-              <Setter Property="Background" Value="{DynamicResource LaunchpadButtonPress}"/>
+              <Setter Property="Background" 
+                      Value="{DynamicResource LaunchpadButtonPress}"/>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+
+    <Style Selector=":audioAdded">
+      <Style Selector="^ > Border">
+        <Style.Animations>
+          <Animation Duration="0:0:0.2"
+                     FillMode="Forward">
+            <KeyFrame Cue="100%">
+              <Setter Property="Background" 
+                      Value="{DynamicResource LaunchpadButtonContainsAudio}"/>
+            </KeyFrame>
+          </Animation>
+        </Style.Animations>
+      </Style>
+    </Style>
+
+    <Style Selector=":audioRemoved">
+      <Style Selector="^ > Border">
+        <Style.Animations>
+          <Animation Duration="0:0:0.2"
+                     FillMode="Forward">
+            <KeyFrame Cue="100%">
+              <Setter Property="Background" 
+                      Value="{DynamicResource LaunchpadButtonIdle}"/>
             </KeyFrame>
           </Animation>
         </Style.Animations>

@@ -16,7 +16,8 @@ using System.Threading;
 
 namespace LaunchpadSamplingApp.Components
 {
-    [PseudoClasses(":onPointerEnter", "onPointerLeave", "onPointerPressed", "onPointerReleased")]
+    [PseudoClasses(":onPointerEnter", "onPointerLeave", "onPointerPressed", 
+                   "onPointerReleased", "audioAdded", "audioRemoved")]
     public partial class LaunchpadButton : UserControl
     {
         private NAudio.Wave.WaveFileReader? _wave = null;
@@ -31,6 +32,18 @@ namespace LaunchpadSamplingApp.Components
         public LaunchpadButton()
         {
             InitializeComponent();
+        }
+
+
+        public void Play()
+        {
+            try
+            {
+                _audioOut?.Play();
+            } catch (Exception ex)
+            {
+                Debug.WriteLine("No Audio in button");
+            }
         }
 
 
@@ -87,16 +100,26 @@ namespace LaunchpadSamplingApp.Components
         {
             base.OnPointerPressed(e);
 
-            PseudoClasses.Set(":onPointerPressed", true);
-            PseudoClasses.Set(":onPointerReleased", false);
+            var pointer = e.GetCurrentPoint(null);
+
+            if (pointer.Properties.IsLeftButtonPressed)
+            {
+                PseudoClasses.Set(":onPointerPressed", true);
+                PseudoClasses.Set(":onPointerReleased", false);
+            }
         }
 
         protected override void OnPointerReleased(PointerReleasedEventArgs e)
         {
             base.OnPointerReleased(e);
 
-            PseudoClasses.Set(":onPointerReleased", true);
-            PseudoClasses.Set(":onPointerPressed", false);
+            var pointer = e.GetCurrentPoint(null);
+
+            if (!pointer.Properties.IsLeftButtonPressed)
+            {
+                PseudoClasses.Set(":onPointerReleased", true);
+                PseudoClasses.Set(":onPointerPressed", false);
+            }
         }
 
         #endregion

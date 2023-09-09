@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LaunchpadSamplingApp.Views.MainView"
              x:DataType="vm:MainViewModel"
-             Background="{DynamicResource primaryBackgroundColor}">
+             Background="{DynamicResource PrimaryBackgroundColor}">
   <Design.DataContext>
     <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
@@ -15,7 +15,16 @@
   </Design.DataContext>
 
   <Grid>
-    <components:Launchpad Width="400" Height="400"/>
+    <Canvas>
+      <components:Launchpad Canvas.Top="0" Canvas.Left="0" PointerMoved="LaunchpadDrag"/>
+      <components:Launchpad Canvas.Top="0" Canvas.Left="0" PointerMoved="LaunchpadDrag"/>
+    </Canvas>
+    
+    <Viewbox Stretch="Uniform">
+      <StackPanel Orientation="Horizontal">
+        
+      </StackPanel>
+    </Viewbox>
   </Grid>
   
 </UserControl>

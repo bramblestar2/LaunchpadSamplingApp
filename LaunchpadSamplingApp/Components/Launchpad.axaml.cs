@@ -1,5 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Media;
+using NAudio.Wave;
+using System;
 using System.Diagnostics;
 using System.Numerics;
 
@@ -13,7 +17,6 @@ namespace LaunchpadSamplingApp.Components
 
             UpdateLaunchpadLayout("Pro");
         }
-
 
 
         private void UpdateLaunchpadLayout(string type)
@@ -46,13 +49,15 @@ namespace LaunchpadSamplingApp.Components
                         button.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch;
                         button.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch;
                         button.Margin = new Thickness(2);
+                        button.Width = 20;
+                        button.Height = 20;
 
                         //Create circular buttons on outer
                         if (x == 0 || x == 9 ||
                             y == 0 || y == 9)
                         {
                             button.PART_Border.CornerRadius = new CornerRadius(200);
-                            button.Margin = new Thickness(5);
+                            button.Margin = new Thickness(3);
                         }
 
                         Grid.SetRow(button, x);
@@ -60,14 +65,31 @@ namespace LaunchpadSamplingApp.Components
 
                         PART_Grid.Children.Add(button);
 
-                        //button.PointerPressed += (sender, e) =>
-                        //{
-                        //    LaunchpadButton lb = sender as LaunchpadButton;
-                        //    Vector2 position = new Vector2(Grid.GetColumn(lb), Grid.GetRow(lb));
-                        //    Debug.WriteLine(position);
-                        //};
+                        button.PointerPressed += (sender, e) =>
+                        {
+                            LaunchpadButton lb = sender as LaunchpadButton;
+
+                            lb.Play();
+                            //Vector2 position = new Vector2(Grid.GetColumn(lb), Grid.GetRow(lb));
+                            //Debug.WriteLine(position);
+                        };
                     }
                 }
+        }
+
+
+        private void LaunchpadRotateSlider(object? sender, Avalonia.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            TransformGroup launchpadGroup = new TransformGroup();
+            launchpadGroup.Children.Add(new RotateTransform(-e.NewValue));
+
+            layoutTransform.LayoutTransform = launchpadGroup;
+
+
+            TransformGroup logoGroup = new TransformGroup();
+            logoGroup.Children.Add(new RotateTransform(e.NewValue));
+
+            NovationLogo.RenderTransform = logoGroup;
         }
     }
 }

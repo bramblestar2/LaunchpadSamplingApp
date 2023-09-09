@@ -3,16 +3,55 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+             MinWidth="150" MinHeight="150"
              x:Class="LaunchpadSamplingApp.Components.Launchpad">
 
-  <Border x:Name="PART_Border"
-          Background="{DynamicResource LaunchpadPrimaryBackground}"
-          CornerRadius="15">
+  <Viewbox Stretch="Uniform">
 
-    <Grid x:Name="PART_Grid"
-          Margin="5">
+    <LayoutTransformControl x:Name="layoutTransform">
+
+      <Border x:Name="PART_Border"
+              Background="{DynamicResource LaunchpadPrimaryBackground}"
+              CornerRadius="5">
       
-    </Grid>
-    
-  </Border>
+        <Grid>
+          <Grid x:Name="PART_Grid"
+                Margin="5">
+          
+          </Grid>
+
+
+          <Path HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="7"
+                x:Name="NovationLogo"
+                Classes="Novation">
+
+            <Path.ContextFlyout>
+              <Flyout>
+                <StackPanel>
+                    <TextBlock Text="Rotate Launchpad"/>
+                  <Grid ColumnDefinitions="*,50">
+                    <Slider Minimum="0" 
+                            x:Name="launchpadRotateSlider"
+                            Maximum="270"
+                            Width="100"
+                            TickFrequency="45"
+                            IsSnapToTickEnabled="True"
+                            ValueChanged="LaunchpadRotateSlider"/>
+                    <TextBlock Grid.Column="1"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="{Binding Value, ElementName=launchpadRotateSlider}"/>
+                  </Grid>
+                </StackPanel>
+              </Flyout>
+            </Path.ContextFlyout>
+          </Path>
+        </Grid>
+      
+      </Border>
+    </LayoutTransformControl>
+  </Viewbox>
+  
 </UserControl>

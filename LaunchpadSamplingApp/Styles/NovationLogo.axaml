@@ -1,0 +1,55 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+
+          <StackPanel>
+            <Path Classes="Novation"/>
+
+          </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <!-- Add Styles Here -->
+  <Style Selector="Path.Novation">
+    <Setter Property="Fill" Value="{DynamicResource NovationPrimaryBrush}"/>
+    
+    <Setter Property="Data">
+      <PathGeometry>
+        <PathFigures>
+          <PathFigure StartPoint="0,10">
+            <PathFigure.Segments>
+              <LineSegment Point="10,0"/>
+              <LineSegment Point="15,5"/>
+              <LineSegment Point="5,15"/>
+            </PathFigure.Segments>
+          </PathFigure>
+
+          <PathFigure StartPoint="6,16">
+            <PathFigure.Segments>
+              <LineSegment Point="16,6"/>
+              <BezierSegment Point1="19,9"
+                             Point2="20,10"
+                             Point3="19,13"/>
+              <LineSegment Point="11,21"/>
+            </PathFigure.Segments>
+          </PathFigure>
+        </PathFigures>
+      </PathGeometry>
+    </Setter>
+  </Style>
+  
+
+  <Style Selector="Path.Novation:pointerover">
+    <Style.Animations>
+      <Animation Duration="0:0:0.5"
+                 PlaybackDirection="Alternate">
+        <KeyFrame Cue="50%">
+          <Setter Property="Fill" Value="{DynamicResource NovationSecondaryBrush}"/>
+        </KeyFrame>
+      </Animation>
+    </Style.Animations>
+  </Style>
+
+</Styles>
