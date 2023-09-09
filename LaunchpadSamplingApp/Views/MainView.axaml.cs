@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
 using LaunchpadSamplingApp.Components;
+using LaunchpadSamplingApp.Helpers;
+using Serilog.Configuration;
 using System;
 using System.Diagnostics;
 using System.Numerics;
@@ -14,20 +16,7 @@ public partial class MainView : UserControl
     public MainView()
     {
         InitializeComponent();
-    }
 
-
-
-    private void LaunchpadDrag(object sender, PointerEventArgs e)
-    {
-        Launchpad launchpad = (Launchpad)sender;
-
-        PointerPoint pointer = e.GetCurrentPoint(this);
-
-        if (launchpad != null && pointer.Properties.IsLeftButtonPressed)
-        {
-            Canvas.SetLeft(launchpad, pointer.Position.X);
-            Canvas.SetTop(launchpad, pointer.Position.Y);
-        }
+        LaunchpadMidiManager.ListApis();
     }
 }

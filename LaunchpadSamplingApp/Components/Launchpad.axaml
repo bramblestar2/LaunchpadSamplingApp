@@ -30,7 +30,8 @@
             <Path.ContextFlyout>
               <Flyout>
                 <StackPanel>
-                    <TextBlock Text="Rotate Launchpad"/>
+                  <TextBlock Text="Rotate Launchpad" 
+                             HorizontalAlignment="Center"/>
                   <Grid ColumnDefinitions="*,50">
                     <Slider Minimum="0" 
                             x:Name="launchpadRotateSlider"
@@ -44,6 +45,16 @@
                                VerticalAlignment="Center"
                                Text="{Binding Value, ElementName=launchpadRotateSlider}"/>
                   </Grid>
+                  
+                  <Separator HorizontalAlignment="Stretch"/>
+                  <TextBlock Text="Input Device"
+                             HorizontalAlignment="Center"/>
+                  <ComboBox x:Name="launchpadInputsComboBox" 
+                            HorizontalAlignment="Stretch">
+                    <ComboBoxItem Content="Test1"/>
+                    <ComboBoxItem Content="Test2"/>
+                    <ComboBoxItem Content="Test3"/>
+                  </ComboBox>
                 </StackPanel>
               </Flyout>
             </Path.ContextFlyout>

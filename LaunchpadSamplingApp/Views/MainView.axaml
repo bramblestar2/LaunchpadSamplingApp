@@ -15,14 +15,10 @@
   </Design.DataContext>
 
   <Grid>
-    <Canvas>
-      <components:Launchpad Canvas.Top="0" Canvas.Left="0" PointerMoved="LaunchpadDrag"/>
-      <components:Launchpad Canvas.Top="0" Canvas.Left="0" PointerMoved="LaunchpadDrag"/>
-    </Canvas>
-    
     <Viewbox Stretch="Uniform">
       <StackPanel Orientation="Horizontal">
-        
+        <components:Launchpad/>
+        <components:Launchpad/>
       </StackPanel>
     </Viewbox>
   </Grid>
