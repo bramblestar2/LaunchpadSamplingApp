@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LaunchpadSamplingApp.ViewModels"
              xmlns:components="using:LaunchpadSamplingApp.Components"
+             xmlns:local="using:LaunchpadSamplingApp.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LaunchpadSamplingApp.Views.MainView"
              x:DataType="vm:MainViewModel"
+             x:Name="mainView"
              Background="{DynamicResource PrimaryBackgroundColor}">
   <Design.DataContext>
     <!-- This only sets the DataContext for the previewer in an IDE,
@@ -14,13 +16,15 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
-  <Grid ColumnDefinitions="">
+  <Grid ColumnDefinitions="Auto, *">
 
-    <Viewbox Stretch="Uniform">
-      <StackPanel Orientation="Horizontal">
-        <components:Launchpad/>
-      </StackPanel>
-    </Viewbox>
+    <StackPanel>
+      <Button Content="Start" Command="{Binding ToStartMenu, ElementName=mainView}"/>
+      <Button Content="UserControl" Command="{Binding ToUserControl, ElementName=mainView}"/>
+    </StackPanel>
+    
+    <ContentPresenter x:Name="Presenter" Grid.Column="1"
+                      Content="{Binding View, ElementName=mainView}"/>
   </Grid>
   
 </UserControl>
