@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace LaunchpadSamplingApp.Views
 {
-    public partial class UserControl1 : UserControl
+    public partial class ProjectView : UserControl
     {
-        public UserControl1()
+        public ProjectView()
         {
             InitializeComponent();
         }

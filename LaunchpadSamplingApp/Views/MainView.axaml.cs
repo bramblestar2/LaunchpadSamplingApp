@@ -16,25 +16,4 @@ public partial class MainView : UserControl
         LaunchpadMidiManager.ReloadDeviceList();
 
     }
-
-    private UserControl _view = new StartMenu();
-    public UserControl View 
-    { 
-        get => _view; 
-        set
-        {
-            _view = value;
-        }
-    }
-
-    [RelayCommand]
-    public void ToStartMenu() 
-    {
-        Presenter.Content = new StartMenu(); 
-    }
-    [RelayCommand]
-    public void ToUserControl() 
-    {
-        Presenter.Content = new UserControl1();
-    }
 }

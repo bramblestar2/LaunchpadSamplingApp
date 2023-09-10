@@ -1,6 +1,4 @@
-﻿using RtMidi.Core;
-using RtMidi.Core.Devices;
-using RtMidi.Core.Devices.Infos;
+﻿using RtMidi.Core.Devices.Infos;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
