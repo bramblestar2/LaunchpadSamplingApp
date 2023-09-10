@@ -21,6 +21,7 @@
     <ContentPresenter x:Name="Presenter"
                       Grid.Column="1"
                       Content="{Binding View}"/>
+    
   </Grid>
   
 </UserControl>
