@@ -1,13 +1,5 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Input.Raw;
-using LaunchpadSamplingApp.Components;
+﻿using Avalonia.Controls;
 using LaunchpadSamplingApp.Helpers;
-using Serilog.Configuration;
-using System;
-using System.Diagnostics;
-using System.Numerics;
 
 namespace LaunchpadSamplingApp.Views;
 
@@ -18,5 +10,7 @@ public partial class MainView : UserControl
         InitializeComponent();
 
         LaunchpadMidiManager.ListApis();
+        LaunchpadMidiManager.ReloadDeviceList();
+
     }
 }

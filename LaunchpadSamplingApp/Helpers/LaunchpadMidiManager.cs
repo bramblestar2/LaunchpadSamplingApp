@@ -1,19 +1,40 @@
-﻿using Avalonia;
-using Avalonia.Threading;
+﻿using RtMidi.Core;
 using RtMidi.Core.Devices;
-using System;
+using RtMidi.Core.Devices.Infos;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LaunchpadSamplingApp.Helpers
 {
     static internal class LaunchpadMidiManager
     {
-        static private Dictionary<string, IMidiInputDevice> 
-            _midiDevices = new Dictionary<string, IMidiInputDevice>();
+        static private IEnumerable<IMidiInputDeviceInfo> 
+            _midiDevices = RtMidi.Core.MidiDeviceManager.Default.InputDevices;
+
+        static public IEnumerable<IMidiInputDeviceInfo> MidiDevices
+        { 
+            get { return _midiDevices; }
+        }
+
+        static public IMidiInputDeviceInfo? GetDeviceByName(string name)
+        {
+            foreach (var midiDevice in _midiDevices)
+            {
+                if (midiDevice.Name == name) return midiDevice;
+            }
+
+            IEnumerable<IMidiInputDeviceInfo>? device = _midiDevices.Where(device =>
+            {
+                if (device.Name == name) return true;
+
+                return false;
+            });
+
+            if (device != null) return device.First();
+
+            return null;
+        }
 
         static public void ListApis()
         {
@@ -27,12 +48,7 @@ namespace LaunchpadSamplingApp.Helpers
 
         static public void ReloadDeviceList()
         {
-            var devices = RtMidi.Core.MidiDeviceManager.Default.InputDevices;
-
-            foreach (var device in devices)
-            {
-                Debug.WriteLine($"{device.Name}");
-            }
+            _midiDevices = RtMidi.Core.MidiDeviceManager.Default.InputDevices;
         }
     }
 }

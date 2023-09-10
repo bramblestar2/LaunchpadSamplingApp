@@ -17,7 +17,6 @@
         <Grid>
           <Grid x:Name="PART_Grid"
                 Margin="5">
-          
           </Grid>
 
 
@@ -50,10 +49,17 @@
                   <TextBlock Text="Input Device"
                              HorizontalAlignment="Center"/>
                   <ComboBox x:Name="launchpadInputsComboBox" 
+                            DropDownOpened="UpdateLaunchpadComboBox"
+                            SelectionChanged="LaunchpadInputSelectionChanged"
                             HorizontalAlignment="Stretch">
-                    <ComboBoxItem Content="Test1"/>
-                    <ComboBoxItem Content="Test2"/>
-                    <ComboBoxItem Content="Test3"/>
+                  </ComboBox>
+                  <TextBlock Text="Launchpad Layout"
+                             HorizontalAlignment="Center"/>
+                  <ComboBox x:Name="launchpadLayout"
+                            SelectedIndex="0"
+                            HorizontalAlignment="Stretch">
+                    <ComboBoxItem Content="XY Layout"/>
+                    <ComboBoxItem Content="Drumrack Layout"/>
                   </ComboBox>
                 </StackPanel>
               </Flyout>

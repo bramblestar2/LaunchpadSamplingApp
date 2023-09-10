@@ -1,37 +1,37 @@
-using Avalonia.Animation;
-using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
-using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using Avalonia.Markup.Xaml.Converters;
 using Avalonia.Media;
-using Avalonia.Styling;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace LaunchpadSamplingApp.Components
 {
-    [PseudoClasses(":onPointerEnter", "onPointerLeave", "onPointerPressed", 
-                   "onPointerReleased", "audioAdded", "audioRemoved")]
+    [PseudoClasses(":onPointerEnter", ":onPointerLeave", ":onPointerPressed", 
+                   ":onPointerReleased", ":audioAdded", ":audioRemoved")]
     public partial class LaunchpadButton : UserControl
     {
         private NAudio.Wave.WaveFileReader? _wave = null;
         private NAudio.Wave.DirectSoundOut? _audioOut = null;
 
 
-        public readonly SolidColorBrush primaryBrush = new SolidColorBrush(Color.FromRgb(0x50, 0x50, 0x50));
-        public readonly SolidColorBrush hoveredBrush = new SolidColorBrush(Color.FromRgb(0x40, 0x40, 0x40));
-        public readonly SolidColorBrush pressedBrush = new SolidColorBrush(Color.FromRgb(0x20, 0x20, 0x20));
-
-
         public LaunchpadButton()
         {
             InitializeComponent();
+        }
+
+
+        public void PressUp()
+        {
+            PseudoClasses.Set(":onPointerPressed", false);
+            PseudoClasses.Set(":onPointerReleased", true);
+        }
+
+        public void PressDown()
+        {
+            PseudoClasses.Set(":onPointerPressed", true);
+            PseudoClasses.Set(":onPointerReleased", false);
         }
 
 

@@ -14,10 +14,10 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
-  <Grid>
+  <Grid ColumnDefinitions="">
+
     <Viewbox Stretch="Uniform">
       <StackPanel Orientation="Horizontal">
-        <components:Launchpad/>
         <components:Launchpad/>
       </StackPanel>
     </Viewbox>

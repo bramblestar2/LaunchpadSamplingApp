@@ -5,6 +5,7 @@
   <!--Base Colors-->
   <Brush x:Key="PrimaryBackgroundColor">#353535</Brush>
   <Brush x:Key="SecondaryBackgroundColor">#6A6A6A</Brush>
+  <Brush x:Key="TertiaryBackgroundColor">#2A2A2A</Brush>
 
 
   <!--Launchpad Colors-->
