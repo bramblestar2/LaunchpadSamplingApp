@@ -179,7 +179,7 @@ namespace LaunchpadSamplingApp.Components
                 {
                     try
                     {
-                        _buttons[(int)pos.Value.X, (int)pos.Value.Y].PressDown();
+                        _buttons[(int)pos.Value.X, (int)pos.Value.Y]?.PressDown();
                     }
                     catch
                     {

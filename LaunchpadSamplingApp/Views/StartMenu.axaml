@@ -6,7 +6,7 @@
              x:Class="LaunchpadSamplingApp.Views.StartMenu">
 
   <Border Background="Transparent">
-    <Grid ColumnDefinitions="Auto,*">
+    <Grid ColumnDefinitions="300,*">
       <StackPanel Orientation="Vertical" 
                   Margin="20"
                   VerticalAlignment="Center"

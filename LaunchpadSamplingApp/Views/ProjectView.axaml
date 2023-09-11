@@ -7,16 +7,22 @@
              x:Class="LaunchpadSamplingApp.Views.ProjectView">
 
   <Grid Margin="10"
-        ColumnDefinitions="*,Auto">
-    
-    <Button Content="Go Back (TEMP)"
-            x:Name="backButton"
-            Foreground="White"
-            Width="150"
-            Height="50"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"/>
-    <components:Launchpad Grid.Column="1"/>
+        RowDefinitions="*,Auto">
+
+
+    <Grid ColumnDefinitions="*,Auto"
+          Margin="10">
+      <Button Content="Go Back (TEMP)"
+              x:Name="backButton"
+              Foreground="White"
+              Width="150"
+              Height="50"
+              HorizontalContentAlignment="Center"
+              VerticalContentAlignment="Center"/>
+      <components:Launchpad Grid.Column="1"/>
+    </Grid>
+
+    <components:AudioSlicer Grid.Row="1" Height="100"/>
     
   </Grid>
   
