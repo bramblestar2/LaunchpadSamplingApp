@@ -5,7 +5,22 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="LaunchpadSamplingApp.Components.AudioSlicer">
 
-  <Border Background="{DynamicResource TertiaryBackgroundColor}">
+  <Border Background="{DynamicResource TertiaryBackgroundColor}"
+          x:Name="PART_Border">
+
+    <Grid Margin="5"
+          ColumnDefinitions="100,*">
+      <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                    HorizontalScrollBarVisibility="Visible"
+                    PointerWheelChanged="WaveformScroll"
+                    Grid.Column="1"
+                    x:Name="PART_Scroll">
+        <StackPanel x:Name="PART_Panel"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"/>
+      </ScrollViewer>
+    </Grid>
     
   </Border>
   

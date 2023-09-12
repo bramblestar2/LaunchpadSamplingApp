@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
 using System;
@@ -12,7 +13,7 @@ namespace LaunchpadSamplingApp.Components
                    ":onPointerReleased", ":audioAdded", ":audioRemoved")]
     public partial class LaunchpadButton : UserControl
     {
-        private NAudio.Wave.WaveFileReader? _wave = null;
+        private NAudio.Wave.AudioFileReader? _wave = null;
         private NAudio.Wave.DirectSoundOut? _audioOut = null;
 
 
@@ -47,15 +48,24 @@ namespace LaunchpadSamplingApp.Components
         }
 
 
-        public void Load(string filepath)
+        public void Load(string? path)
         {
-            if (File.Exists(filepath))
+            if (File.Exists(path))
             {
-                Unload(); //Unload possible audio
+                switch (System.IO.Path.GetExtension(path))
+                {
+                    case ".wav":
+                    case ".mp3":
+                    case ".ogg":
+                    case ".aiff":
+                        Unload(); //Unload possible audio
 
-                _wave = new NAudio.Wave.WaveFileReader(filepath);
-                _audioOut = new NAudio.Wave.DirectSoundOut();
-                _audioOut.Init(_wave);
+                        _wave = new NAudio.Wave.AudioFileReader(path);
+                        _audioOut = new NAudio.Wave.DirectSoundOut();
+                        _audioOut.Init(_wave);
+
+                        break;
+                }
             }
         }
 
