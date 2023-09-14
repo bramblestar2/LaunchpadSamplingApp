@@ -25,6 +25,7 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
     <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="Restless.WaveForm" Version="1.1.0" />
     <PackageReference Include="RtMidi.Core" Version="1.0.53" />
   </ItemGroup>
 </Project>

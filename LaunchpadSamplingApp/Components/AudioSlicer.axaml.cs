@@ -4,6 +4,9 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
+using Restless.WaveForm.Calculators;
+using Restless.WaveForm.Renderer;
+using Restless.WaveForm.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -64,6 +67,31 @@ namespace LaunchpadSamplingApp.Components
 
                 _wave = null;
                 _audioOut = null;
+            }
+        }
+
+
+        private async void DrawWaveform()
+        {
+            RenderResult renderResult = null;
+            try
+            {
+                RenderSettings settings = new SineSettings()
+                {
+                    Width = 200,
+                    AutoWidth = true,
+                    ZoomX = 1, 
+                    ZoomY = 1,
+                    VolumeBoost = 1,
+                };
+
+                IRenderer renderer = null;
+                //renderResult = await WaveFormRenderer.CreateAsync(renderer, _wave, , settings);
+                
+
+            } catch (Exception ex) 
+            {
+                Debug.WriteLine($"Problem: {ex.Message}");
             }
         }
 
