@@ -2,9 +2,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:LaunchpadSamplingApp.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="LaunchpadSamplingApp.Components.AudioSlicer">
+             x:Class="LaunchpadSamplingApp.Components.AudioSlicer"
+             x:CompileBindings="False">
 
+  
   <Border Background="{DynamicResource TertiaryBackgroundColor}"
           x:Name="PART_Border">
 
@@ -15,10 +18,7 @@
                     PointerWheelChanged="WaveformScroll"
                     Grid.Column="1"
                     x:Name="PART_Scroll">
-        <StackPanel x:Name="PART_Panel"
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"/>
+        <Image Source="{Binding WaveFormImage}"/>
       </ScrollViewer>
     </Grid>
     
