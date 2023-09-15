@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
              MinWidth="150" MinHeight="150"
+             x:CompileBindings="False"
              x:Class="LaunchpadSamplingApp.Components.Launchpad">
 
   <Viewbox Stretch="Uniform">
@@ -51,7 +52,8 @@
                   <ComboBox x:Name="launchpadInputsComboBox" 
                             DropDownOpened="UpdateLaunchpadComboBox"
                             SelectionChanged="LaunchpadInputSelectionChanged"
-                            HorizontalAlignment="Stretch">
+                            HorizontalAlignment="Stretch"
+                            ItemsSource="{Binding DeviceList}">
                   </ComboBox>
                   <TextBlock Text="Launchpad Layout"
                              HorizontalAlignment="Center"/>

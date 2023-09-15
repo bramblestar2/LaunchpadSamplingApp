@@ -59,7 +59,6 @@ public partial class AudioSlicerViewModel : ObservableObject
 
                     _wave.ReadAsync(bytes, 0, bytes.Length).Wait();
 
-                    DrawAudioWaveform(bytes);
 
                     break;
             }
@@ -103,27 +102,5 @@ public partial class AudioSlicerViewModel : ObservableObject
         {
             Debug.WriteLine($"Problem: {ex.Message}");
         }
-    }
-
-
-    private void DrawAudioWaveform(byte[] bytes)
-    {
-        //    PART_Panel.Children.Clear();
-        //
-        //    for (int position = 0; position < bytes.Length; position += _wave.WaveFormat.SampleRate/32)
-        //    {
-        //        //Debug.Write($"{bytes[position]}, ");
-        //
-        //        Rectangle rectangle = new Rectangle()
-        //        {
-        //            Width = 3,
-        //            MinHeight = 2,
-        //            Height = bytes[position]/2,
-        //            MaxHeight = 150,
-        //            Fill = Brushes.White,
-        //        };
-        //
-        //        PART_Panel.Children.Add(rectangle);
-        //    }
     }
 }

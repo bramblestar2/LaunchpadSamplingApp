@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Threading;
 using LaunchpadSamplingApp.Helpers;
+using LaunchpadSamplingApp.ViewModels;
 using RtMidi.Core;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Infos;
@@ -24,6 +25,8 @@ namespace LaunchpadSamplingApp.Components
         private IMidiInputDevice? _device = null;
         private LaunchpadButton[,] _buttons = new LaunchpadButton[10,10];
 
+        private LaunchpadViewModel _launchpadViewModel = new LaunchpadViewModel();
+
         public IMidiInputDevice? Device 
         {
             get => _device;
@@ -36,6 +39,8 @@ namespace LaunchpadSamplingApp.Components
             InitializeComponent();
 
             UpdateLaunchpadLayout("Pro");
+
+            this.DataContext = _launchpadViewModel;
         }
 
 
@@ -118,14 +123,7 @@ namespace LaunchpadSamplingApp.Components
         {
             LaunchpadMidiManager.ReloadDeviceList();
 
-            launchpadInputsComboBox.Items.Clear();
-            foreach (var device in LaunchpadMidiManager.MidiDevices)
-            {
-                launchpadInputsComboBox.Items.Add(new ComboBoxItem()
-                {
-                    Content = device.Name
-                });
-            }
+            _launchpadViewModel.UpdateLaunchpadList();
         }
 
         private void LaunchpadInputSelectionChanged(object? sender, SelectionChangedEventArgs e)
