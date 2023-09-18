@@ -12,34 +12,43 @@
     </Design.PreviewWith>
 
     <!-- Add Styles Here -->
+
   <Style Selector="Path.Novation">
     <Setter Property="Fill" Value="{DynamicResource NovationPrimaryBrush}"/>
-    
+
+    <Setter Property="RenderTransform">
+      <TransformGroup>
+        <RotateTransform Angle="-45"/>
+      </TransformGroup>
+    </Setter>
+
     <Setter Property="Data">
       <PathGeometry>
         <PathFigures>
-          <PathFigure StartPoint="0,10">
+          <PathFigure StartPoint="0,0">
             <PathFigure.Segments>
-              <LineSegment Point="10,0"/>
-              <LineSegment Point="15,5"/>
-              <LineSegment Point="5,15"/>
+              <LineSegment Point="15,0"/>
+              <LineSegment Point="15,7"/>
+              <LineSegment Point="0, 7"/>
             </PathFigure.Segments>
           </PathFigure>
 
-          <PathFigure StartPoint="6,16">
+          <PathFigure StartPoint="0,8">
             <PathFigure.Segments>
-              <LineSegment Point="16,6"/>
-              <BezierSegment Point1="19,9"
-                             Point2="20,10"
-                             Point3="19,13"/>
-              <LineSegment Point="11,21"/>
+              <LineSegment Point="15,8"/>
+              <BezierSegment Point1="15,10"
+                             Point2="16,15"
+                             Point3="10,15"/>
+              <!-- 15,15 -->
+              <LineSegment Point="0, 15"/>
             </PathFigure.Segments>
           </PathFigure>
+
+
         </PathFigures>
       </PathGeometry>
     </Setter>
   </Style>
-  
 
   <Style Selector="Path.Novation:pointerover">
     <Style.Animations>
@@ -51,5 +60,7 @@
       </Animation>
     </Style.Animations>
   </Style>
+
+  
 
 </Styles>

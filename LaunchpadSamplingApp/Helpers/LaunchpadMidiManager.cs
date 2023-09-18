@@ -17,6 +17,8 @@ namespace LaunchpadSamplingApp.Helpers
 
         static public IMidiInputDeviceInfo? GetDeviceByName(string name)
         {
+            ReloadDeviceList();
+
             foreach (var midiDevice in _midiDevices)
             {
                 if (midiDevice.Name == name) return midiDevice;
@@ -29,8 +31,16 @@ namespace LaunchpadSamplingApp.Helpers
                 return false;
             });
 
-            if (device != null) return device.First();
-
+            try
+            {
+                if (device != null) return device.First();
+            } catch
+            {
+#if DEBUG
+                Debug.WriteLine($"'{name}' device doesn't exist");
+#endif
+                return null;
+            }
             return null;
         }
 

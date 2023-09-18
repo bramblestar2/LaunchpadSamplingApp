@@ -3,33 +3,32 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using LaunchpadSamplingApp.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LaunchpadSamplingApp.ViewModels
+namespace LaunchpadSamplingApp.ViewModels;
+
+public class LaunchpadViewModel : ViewModelBase
 {
-    public class LaunchpadViewModel : ObservableObject
+    private ObservableCollection<string> _deviceNameList = new ObservableCollection<string>();
+
+    public ObservableCollection<string> DeviceNameList
     {
-        private List<string> _deviceList = new List<string>();
-
-        public List<string> DeviceList
+        get => _deviceNameList;
+        private set
         {
-            get => _deviceList;
-            private set
-            {
-                _deviceList = value;
-                OnPropertyChanged(nameof(DeviceList));
-            }
+            _deviceNameList = value;
         }
+    }
 
-        public void UpdateLaunchpadList()
+    public void UpdateLaunchpadList()
+    {
+        DeviceNameList.Clear();
+        foreach (var device in LaunchpadMidiManager.MidiDevices)
         {
-            DeviceList.Clear();
-            foreach (var device in LaunchpadMidiManager.MidiDevices)
-            {
-                DeviceList.Add(device.Name);
-            }
+            DeviceNameList.Add(device.Name);
         }
     }
 }

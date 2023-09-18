@@ -1,6 +1,10 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml.Converters;
+using LaunchpadSamplingApp.ViewModels;
 using System;
+using System.Diagnostics;
 
 namespace LaunchpadSamplingApp.Views
 {

@@ -40,6 +40,10 @@ namespace LaunchpadSamplingApp.Components
 
             UpdateLaunchpadLayout("Pro");
 
+            LaunchpadMidiManager.ReloadDeviceList();
+
+            _launchpadViewModel.UpdateLaunchpadList();
+
             this.DataContext = _launchpadViewModel;
         }
 
@@ -129,16 +133,18 @@ namespace LaunchpadSamplingApp.Components
         private void LaunchpadInputSelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
             IMidiInputDeviceInfo? deviceInfo = null;
-
-            if (e.AddedItems.Count > 0)
+            if ((sender as ComboBox).Items.Count > 0)
             {
-                ComboBoxItem comboBoxItem = e.AddedItems[0] as ComboBoxItem;
-                deviceInfo = LaunchpadMidiManager.GetDeviceByName((string)comboBoxItem.Content);
-            }
+                if (e.AddedItems.Count > 0)
+                {
+                    string comboBoxItem = e.AddedItems[0] as string;
+                    deviceInfo = LaunchpadMidiManager.GetDeviceByName(comboBoxItem);
+                }
 
-            if (deviceInfo != null)
-            {
-                ChangeInputDevice(deviceInfo.CreateDevice());
+                if (deviceInfo != null)
+                {
+                    ChangeInputDevice(deviceInfo.CreateDevice());
+                }
             }
         }
 

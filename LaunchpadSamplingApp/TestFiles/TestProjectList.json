@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "ProjectName",
+    "Path": "PathOfProject",
+    "ImagePath": "C:\\Users\\thega\\Pictures\\Oak-Planks-7.png"
+  },
+  {
+    "Name": "ProjectName1",
+    "Path": "PathOfProject1",
+    "ImagePath": "TheImagePath1"
+  }
+]

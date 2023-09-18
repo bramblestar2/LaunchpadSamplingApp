@@ -2,9 +2,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:LaunchpadSamplingApp.ViewModels"
+             xmlns:projectfile="clr-namespace:LaunchpadSamplingApp.StartMenuCustom"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:StartMenuViewModel"
              x:Class="LaunchpadSamplingApp.Views.StartMenu">
 
+  <UserControl.DataContext>
+    <vm:StartMenuViewModel/>
+  </UserControl.DataContext>
+
+  <UserControl.Resources>
+  </UserControl.Resources>
+  
   <Border Background="Transparent">
     <Grid ColumnDefinitions="300,*">
       <StackPanel Orientation="Vertical" 
@@ -31,11 +41,21 @@
               Margin="20"
               Background="{DynamicResource SecondaryBackgroundColor}">
         <ListBox Margin="20"
-                 Background="Transparent">
-          <ListBoxItem Content="Test Project Path"/>
-          <ListBoxItem Content="Test Project Path"/>
-          <ListBoxItem Content="Test Project Path"/>
-          <ListBoxItem Content="Test Project Path"/>
+                 x:Name="ProjectList"
+                 Background="Transparent"
+                 ItemsSource="{Binding Projects}"
+                 SelectionMode="Single">
+          <ListBox.ItemTemplate>
+            <DataTemplate DataType="{x:Type projectfile:ProjectFile}">
+              <Border>
+                <Grid ColumnDefinitions="50,Auto,*">
+                  <Image Source="{Binding Image}" Grid.Column="0" Width="50" Height="50"/>
+                  <TextBlock Text="{Binding Name}" Margin="20,0" Grid.Column="1"/>
+                  <TextBlock Text="{Binding Path}" Margin="0,0" Grid.Column="2"/>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
         </ListBox>
       </Border>
     </Grid>
