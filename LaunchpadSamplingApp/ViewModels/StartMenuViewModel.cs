@@ -37,6 +37,12 @@ namespace LaunchpadSamplingApp.ViewModels
 
         public StartMenuViewModel()
         {
+            ReloadProjectFiles();
+        }
+
+
+        public void ReloadProjectFiles()
+        {
             string dir = Directory.GetCurrentDirectory();
             string projectListFile = _projectListFileName + ".json";
 

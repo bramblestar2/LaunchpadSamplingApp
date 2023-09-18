@@ -17,6 +17,7 @@ public partial class MainViewModel : ViewModelBase
 
         SetupStartupMenuCommands();
         SetupProjectViewCommands();
+        SetupNewProjectViewCommands();
     }
 
     private UserControl? _view;
@@ -31,6 +32,7 @@ public partial class MainViewModel : ViewModelBase
     }
 
     private StartMenu _startMenu = new StartMenu();
+    private NewProjectView _newProjectView = new NewProjectView();
 
     private ProjectView _projectView = new ProjectView();
 
@@ -39,7 +41,7 @@ public partial class MainViewModel : ViewModelBase
     {
         _startMenu.NewButton.Command = new RelayCommand(() =>
         {
-            View = _projectView;
+            View = _newProjectView;
         });
         
         _startMenu.OpenButton.Command = new RelayCommand(async () =>
@@ -76,6 +78,14 @@ public partial class MainViewModel : ViewModelBase
                 Debug.WriteLine($"{file.Name} | {file.Path}");
             }
         };
+    }
+
+    private void SetupNewProjectViewCommands()
+    {
+        _newProjectView.CreateButton.Command = new RelayCommand(() =>
+        {
+            View = _projectView;
+        });
     }
 
     private void SetupProjectViewCommands()

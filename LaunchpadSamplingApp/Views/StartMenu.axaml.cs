@@ -48,5 +48,12 @@ namespace LaunchpadSamplingApp.Views
                 }
             }
         }
+
+        protected override void OnLoaded(RoutedEventArgs e)
+        {
+            base.OnLoaded(e);
+
+            (this.DataContext as StartMenuViewModel).ReloadProjectFiles();
+        }
     }
 }

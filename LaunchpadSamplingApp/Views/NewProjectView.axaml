@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="LaunchpadSamplingApp.Views.NewProjectView">
+  <Grid Margin="20">
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                MinWidth="150">
+
+      <TextBlock Text="Project Name"
+                 Foreground="White"
+                 HorizontalAlignment="Center"/>
+      <TextBox HorizontalAlignment="Stretch"
+               HorizontalContentAlignment="Center"/>
+
+      
+      <Separator HorizontalAlignment="Stretch"
+                 Background="White"/>
+
+      <Grid ColumnDefinitions="Auto,*">
+        <Button Content="Select Image" 
+                HorizontalAlignment="Center"
+                Grid.Column="1"/>
+      </Grid>
+      
+      <Separator HorizontalAlignment="Stretch"
+                 Background="White"/>
+      
+      
+      <Button Content="Create"
+              x:Name="CreateButton"
+              HorizontalAlignment="Center"/>
+    </StackPanel>
+  </Grid>
+</UserControl>
