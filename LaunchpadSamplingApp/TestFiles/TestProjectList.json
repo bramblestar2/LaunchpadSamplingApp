@@ -2,11 +2,13 @@
   {
     "Name": "ProjectName",
     "Path": "PathOfProject",
+    "Status": 0,
     "ImagePath": "C:\\Users\\thega\\Pictures\\Oak-Planks-7.png"
   },
   {
     "Name": "ProjectName1",
     "Path": "PathOfProject1",
+    "Status": 1,
     "ImagePath": "TheImagePath1"
   }
 ]

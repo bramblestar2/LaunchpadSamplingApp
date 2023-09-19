@@ -3,7 +3,7 @@
              xmlns:vm="using:LaunchpadSamplingApp.ViewModels"
              xmlns:views="using:LaunchpadSamplingApp.Views"
              x:Class="LaunchpadSamplingApp.App"
-             RequestedThemeVariant="Light">
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
   <Application.Styles>

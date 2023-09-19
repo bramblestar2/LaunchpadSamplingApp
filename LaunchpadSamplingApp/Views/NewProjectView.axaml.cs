@@ -1,4 +1,10 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
+using LaunchpadSamplingApp.ViewModels;
+using System;
+using System.Diagnostics;
+using System.IO;
 
 namespace LaunchpadSamplingApp.Views
 {
@@ -8,5 +14,103 @@ namespace LaunchpadSamplingApp.Views
         {
             InitializeComponent();
         }
+
+
+        #region Events
+
+        public static readonly RoutedEvent<RoutedEventArgs> CreateClickEvent =
+            RoutedEvent.Register<StartMenu, RoutedEventArgs>(nameof(CreateClick), RoutingStrategies.Bubble);
+
+
+        public event EventHandler<RoutedEventArgs> CreateClick
+        {
+            add => AddHandler(CreateClickEvent, value);
+            remove => RemoveHandler(CreateClickEvent, value);
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        private void CreateProject(object? sender, RoutedEventArgs e)
+        {
+            bool canCreateProject = false;
+
+            bool nameTextHasString = NameTextBox.Text != string.Empty;
+            bool hasValidPath = false;
+
+            string? path = ProjectPathBox.Text;
+            string? name = NameTextBox.Text;
+            if (path is not null && name is not null)
+            {
+                if (Directory.Exists(path) && !Directory.Exists($"{path}\\{name}"))
+                    hasValidPath = true;
+            }
+
+            if (nameTextHasString           && 
+                hasValidPath                )
+            {
+                canCreateProject = true;
+            }
+
+            if (canCreateProject)
+            {
+                Directory.CreateDirectory($"{path}\\{name}");
+                File.Create($"{path}\\{name}\\{name}.disableton").Close();
+
+                RoutedEventArgs args = new RoutedEventArgs(CreateClickEvent);
+                RaiseEvent(args);
+            }
+        }
+
+
+        private async void SelectProjectPath(object? sender, RoutedEventArgs e)
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+
+            var folder = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+            {
+                Title = "Set Project Path",
+                AllowMultiple = false,
+            });
+
+            if (folder.Count > 0)
+            {
+                ProjectPathBox.Text = folder[0].TryGetLocalPath();
+            }
+        }
+
+
+        private async void SelectProjectImage(object? sender, RoutedEventArgs e)
+        {
+            var topLevel = TopLevel.GetTopLevel(this);
+
+            var type = new FilePickerFileType("Images")
+            {
+                Patterns = new[] { "*.png", "*.jpg", },
+            };
+
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "Set Project Image",
+                AllowMultiple = false,
+                FileTypeFilter = new[] { type },
+            });
+
+            if (files.Count > 0)
+            {
+                string path = files[0].TryGetLocalPath();
+                try
+                {
+                    (this.DataContext as NewProjectViewModel).ProjectImage = new Avalonia.Media.Imaging.Bitmap(path);
+                } catch
+                {
+                    Debug.WriteLine("No File");
+                }
+            }
+        }
+
+        #endregion
     }
 }

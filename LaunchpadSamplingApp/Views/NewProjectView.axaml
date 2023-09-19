@@ -2,8 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:LaunchpadSamplingApp.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:NewProjectViewModel"
              x:Class="LaunchpadSamplingApp.Views.NewProjectView">
+
+  <UserControl.DataContext>
+    <vm:NewProjectViewModel/>
+  </UserControl.DataContext>
+  
   <Grid Margin="20">
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -13,15 +20,46 @@
                  Foreground="White"
                  HorizontalAlignment="Center"/>
       <TextBox HorizontalAlignment="Stretch"
-               HorizontalContentAlignment="Center"/>
+               HorizontalContentAlignment="Center"
+               x:Name="NameTextBox"/>
 
       
       <Separator HorizontalAlignment="Stretch"
                  Background="White"/>
 
+      <TextBlock Text="Project Location"
+                 Foreground="White"
+                 HorizontalAlignment="Center"/>
+      <Grid ColumnDefinitions="*,80"
+            Width="250">
+        <TextBox x:Name="ProjectPathBox"
+                 HorizontalAlignment="Stretch"
+                 HorizontalContentAlignment="Left"/>
+
+        <Button Grid.Column="1"
+                Content="Open"
+                ClickMode="Press"
+                Click="SelectProjectPath"
+                HorizontalContentAlignment="Center"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"/>
+      </Grid>
+
+      <Separator HorizontalAlignment="Stretch"
+                 Background="White"/>
+
       <Grid ColumnDefinitions="Auto,*">
+        <Image Source="{Binding ProjectImage}"
+               Width="100"
+               Height="100"/>
+        
         <Button Content="Select Image" 
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                ClickMode="Press"
+                Click="SelectProjectImage"
                 Grid.Column="1"/>
       </Grid>
       
@@ -31,7 +69,10 @@
       
       <Button Content="Create"
               x:Name="CreateButton"
-              HorizontalAlignment="Center"/>
+              HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Center"
+              ClickMode="Press"
+              Click="CreateProject"/>
     </StackPanel>
   </Grid>
 </UserControl>

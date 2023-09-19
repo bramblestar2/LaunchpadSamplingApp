@@ -1,10 +1,7 @@
-﻿using Avalonia.Automation.Provider;
-using Avalonia.Controls;
-using Avalonia.Platform.Storage;
+﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
-using LaunchpadSamplingApp.StartMenuCustom;
+using LaunchpadSamplingApp.Helpers;
 using LaunchpadSamplingApp.Views;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace LaunchpadSamplingApp.ViewModels;
@@ -39,35 +36,18 @@ public partial class MainViewModel : ViewModelBase
 
     private void SetupStartupMenuCommands()
     {
-        _startMenu.NewButton.Command = new RelayCommand(() =>
+        _startMenu.NewClick += (s, e) =>
         {
+            _newProjectView = new NewProjectView();
+            SetupNewProjectViewCommands();
             View = _newProjectView;
-        });
+        };
         
-        _startMenu.OpenButton.Command = new RelayCommand(async () =>
+        _startMenu.OpenClick += (s, e) =>
         {
-            var topLevel = TopLevel.GetTopLevel(View);
-
-            var type = new FilePickerFileType("Project File")
-            {
-                Patterns = new[] { "*.disableton", },
-            };
-
-            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-            {
-                Title = "Open File",
-                AllowMultiple = false,
-                FileTypeFilter = new[] { type },
-            });
-
-            if (files.Count > 0)
-            {
-                foreach (var file in files)
-                {
-                    Debug.WriteLine(file.TryGetLocalPath());
-                }
-            }
-        });
+            Debug.WriteLine($"{e.FolderLocation} | {e.FileName}");
+            View = _projectView;
+        };
 
         _startMenu.ProjectList.SelectionChanged += (s, e) => {
             if (s is ListBox)
@@ -75,17 +55,17 @@ public partial class MainViewModel : ViewModelBase
                 ListBox list = s as ListBox;
                 StartMenuViewModel vm = _startMenu.DataContext as StartMenuViewModel;
                 ProjectFile file = vm.Projects[list.SelectedIndex];
-                Debug.WriteLine($"{file.Name} | {file.Path}");
+                Debug.WriteLine($"{file.Name} | {file.Path} | {file.Status}");
             }
         };
     }
 
     private void SetupNewProjectViewCommands()
     {
-        _newProjectView.CreateButton.Command = new RelayCommand(() =>
+        _newProjectView.CreateClick += (s, e) =>
         {
             View = _projectView;
-        });
+        };
     }
 
     private void SetupProjectViewCommands()

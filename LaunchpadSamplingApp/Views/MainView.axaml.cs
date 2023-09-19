@@ -14,6 +14,5 @@ public partial class MainView : UserControl
 
         LaunchpadMidiManager.ListApis();
         LaunchpadMidiManager.ReloadDeviceList();
-
     }
 }
