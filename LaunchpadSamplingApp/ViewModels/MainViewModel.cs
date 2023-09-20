@@ -46,6 +46,15 @@ public partial class MainViewModel : ViewModelBase
         _startMenu.OpenClick += (s, e) =>
         {
             Debug.WriteLine($"{e.FolderLocation} | {e.FileName}");
+
+            ProjectFile file = new ProjectFile()
+            {
+                Name = e.FileName,
+                Path = e.FolderLocation
+            };
+
+            ProjectsJsonManager.AddProjectFile(file);
+
             View = _projectView;
         };
 

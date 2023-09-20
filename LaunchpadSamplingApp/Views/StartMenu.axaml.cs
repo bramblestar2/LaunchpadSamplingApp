@@ -4,6 +4,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.Converters;
 using Avalonia.Platform.Storage;
 using LaunchpadSamplingApp.CustomArgs;
+using LaunchpadSamplingApp.Helpers;
 using LaunchpadSamplingApp.ViewModels;
 using System;
 using System.Diagnostics;
@@ -91,7 +92,26 @@ namespace LaunchpadSamplingApp.Views
         {
             base.OnLoaded(e);
 
-            (this.DataContext as StartMenuViewModel).ReloadProjectList();
+            if (this.DataContext is not null && this.DataContext is StartMenuViewModel)
+                (this.DataContext as StartMenuViewModel).ReloadList();
+        }
+
+        private void ItemStatusSelectionChanged(object? sender, SelectionChangedEventArgs e) 
+        {
+            var item = ProjectList.Items[ProjectList.SelectedIndex];
+            var combobox = sender as ComboBox;
+                
+            if (item is not null && combobox is not null)
+            {
+                var statusItem = combobox.Items[combobox.SelectedIndex] as ComboBoxItem;
+                
+                if (item is ProjectFile)
+                { 
+                    ProjectFile project = (ProjectFile)item;
+                    
+                    Debug.WriteLine($"{statusItem.Content} | {project.Name}");
+                }
+            }
         }
     }
 }

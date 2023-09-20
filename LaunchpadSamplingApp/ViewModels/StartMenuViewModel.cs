@@ -1,10 +1,6 @@
-﻿using Avalonia.Media.Imaging;
-using LaunchpadSamplingApp.Helpers;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using LaunchpadSamplingApp.Helpers;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 
 namespace LaunchpadSamplingApp.ViewModels
 {
@@ -24,12 +20,11 @@ namespace LaunchpadSamplingApp.ViewModels
 
         public StartMenuViewModel()
         {
-            ReloadProjectList();
-
+            //ReloadList();
         }
 
 
-        public void ReloadProjectList()
+        public void ReloadList()
         {
             ProjectsJsonManager.ReloadProjectFiles();
             Projects = ProjectsJsonManager.ConvertJsonToProjectFile();

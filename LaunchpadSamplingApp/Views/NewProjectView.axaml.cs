@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using LaunchpadSamplingApp.Helpers;
 using LaunchpadSamplingApp.ViewModels;
 using System;
 using System.Diagnostics;
@@ -10,6 +11,8 @@ namespace LaunchpadSamplingApp.Views
 {
     public partial class NewProjectView : UserControl
     {
+        private string? _imagePath = null;
+
         public NewProjectView()
         {
             InitializeComponent();
@@ -57,7 +60,18 @@ namespace LaunchpadSamplingApp.Views
             if (canCreateProject)
             {
                 Directory.CreateDirectory($"{path}\\{name}");
-                File.Create($"{path}\\{name}\\{name}.disableton").Close();
+                using (var file = File.Create($"{path}\\{name}\\{name}.disableton"))
+                {
+                }
+
+                ProjectFile jsonProject = new ProjectFile()
+                {
+                    Name = $"{name}.disableton",
+                    Path = $"{path}\\{name}",
+                    ImagePath = _imagePath
+                };
+
+                ProjectsJsonManager.AddProjectFile(jsonProject);
 
                 RoutedEventArgs args = new RoutedEventArgs(CreateClickEvent);
                 RaiseEvent(args);
@@ -103,6 +117,7 @@ namespace LaunchpadSamplingApp.Views
                 string path = files[0].TryGetLocalPath();
                 try
                 {
+                    _imagePath = path;
                     (this.DataContext as NewProjectViewModel).ProjectImage = new Avalonia.Media.Imaging.Bitmap(path);
                 } catch
                 {
