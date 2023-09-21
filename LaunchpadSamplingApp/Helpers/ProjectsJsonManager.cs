@@ -57,6 +57,15 @@ namespace LaunchpadSamplingApp.Helpers
         }
 
 
+        static public void SetProjectFile(int index, ProjectFile project)
+        {
+            if (index >= 0 && index < JsonProjectList.Count)
+            {
+                JsonProjectList[index] = project;
+            }
+        }
+
+
         static public void AddProjectFile(ProjectFile projectFile)
         {
             foreach (var project in JsonProjectList)
@@ -126,18 +135,14 @@ namespace LaunchpadSamplingApp.Helpers
 
             if (JsonProjectList is not null)
             {
-                foreach (var project in JsonProjectList)
+                for (int i = 0; i < JsonProjectList.Count; i++)
                 {
-                    ProjectFile file = new ProjectFile()
-                    {
-                        Name = project.Name,
-                        Path = project.Path,
-                        Status = project.Status,
-                    };
-
+                    ProjectFile project = JsonProjectList[i];
+                    
                     try
                     {
-                        file.Image = new Bitmap(project.ImagePath);
+                        if (project.ImagePath != string.Empty && project.ImagePath != null)
+                            project.Image = new Bitmap(project.ImagePath);
                     }
                     catch
                     {
@@ -145,7 +150,7 @@ namespace LaunchpadSamplingApp.Helpers
                     }
 
                     if (File.Exists(project.Path + "\\" + project.Name))
-                        list.Add(file);
+                        list.Add(project);
                 }
             }
             return list;
@@ -184,18 +189,19 @@ namespace LaunchpadSamplingApp.Helpers
         {
             ProjectStatus? result = null;
 
-            switch (status)
+            switch (status.ToLower())
             {
-                case "Unassigned":
+                case "unassigned":
                     result = ProjectStatus.UNASSIGNED;
                     break;
-                case "Work In Progress":
+                case "work in progress":
+                case "wip":
                     result = ProjectStatus.WIP;
                     break;
-                case "Abandoned":
+                case "abandoned":
                     result = ProjectStatus.ABANDONED;
                     break;
-                case "Completed":
+                case "completed":
                     result = ProjectStatus.COMPLETED;
                     break;
             }

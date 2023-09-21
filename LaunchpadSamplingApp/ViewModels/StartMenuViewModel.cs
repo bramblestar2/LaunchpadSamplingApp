@@ -4,13 +4,13 @@ using System.Diagnostics;
 
 namespace LaunchpadSamplingApp.ViewModels
 {
-    internal class StartMenuViewModel : ViewModelBase
+    public class StartMenuViewModel : ViewModelBase
     {
         private ObservableCollection<ProjectFile> _projects = new ObservableCollection<ProjectFile>();
         public ObservableCollection<ProjectFile> Projects
         {
             get { return _projects; }
-            private set
+            set
             {
                 _projects = value;
                 OnPropertyChanged(nameof(Projects));

@@ -57,16 +57,6 @@ public partial class MainViewModel : ViewModelBase
 
             View = _projectView;
         };
-
-        _startMenu.ProjectList.SelectionChanged += (s, e) => {
-            if (s is ListBox)
-            {
-                ListBox list = s as ListBox;
-                StartMenuViewModel vm = _startMenu.DataContext as StartMenuViewModel;
-                ProjectFile file = vm.Projects[list.SelectedIndex];
-                Debug.WriteLine($"{file.Name} | {file.Path} | {file.Status}");
-            }
-        };
     }
 
     private void SetupNewProjectViewCommands()

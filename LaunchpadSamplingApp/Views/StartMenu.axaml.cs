@@ -2,22 +2,32 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.Converters;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using LaunchpadSamplingApp.CustomArgs;
 using LaunchpadSamplingApp.Helpers;
 using LaunchpadSamplingApp.ViewModels;
+using Newtonsoft.Json;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace LaunchpadSamplingApp.Views
 {
     public partial class StartMenu : UserControl
     {
+        private StartMenuViewModel? viewModel = null;
+
         public StartMenu()
         {
             InitializeComponent();
+
+            viewModel = DataContext as StartMenuViewModel;
         }
+
+
 
 
         public static readonly RoutedEvent<RoutedEventArgs> NewClickEvent =
@@ -92,24 +102,53 @@ namespace LaunchpadSamplingApp.Views
         {
             base.OnLoaded(e);
 
-            if (this.DataContext is not null && this.DataContext is StartMenuViewModel)
-                (this.DataContext as StartMenuViewModel).ReloadList();
+            viewModel?.ReloadList();
         }
+
+
+        private void ItemStatusFlyoutClosed(object? sender, EventArgs e)
+        {
+        }
+
 
         private void ItemStatusSelectionChanged(object? sender, SelectionChangedEventArgs e) 
         {
-            var item = ProjectList.Items[ProjectList.SelectedIndex];
+            int index = ProjectList.SelectedIndex;
+            var item = ProjectsJsonManager.JsonProjectList[index];
             var combobox = sender as ComboBox;
                 
-            if (item is not null && combobox is not null)
+            if (combobox is not null)
             {
                 var statusItem = combobox.Items[combobox.SelectedIndex] as ComboBoxItem;
                 
-                if (item is ProjectFile)
-                { 
-                    ProjectFile project = (ProjectFile)item;
-                    
-                    Debug.WriteLine($"{statusItem.Content} | {project.Name}");
+                item.Status = (ProjectStatus)ProjectFile.StringToProjectStatus((string)statusItem.Content);
+
+                ProjectsJsonManager.SetProjectFile(index, item);
+
+                if (this.DataContext is not null && this.DataContext is StartMenuViewModel)
+                {
+                    viewModel.Projects[index] = ProjectsJsonManager.JsonProjectList[index];
+
+                    var project = viewModel.Projects.FirstOrDefault(i => i.Name == item.Name);
+                    //
+                    //project.Status = item.Status;
+
+                    try
+                    {
+                        if (project.ImagePath != string.Empty &&
+                            project.Image == null)
+                        {
+                            project.Image = new Bitmap(project.ImagePath);
+                            Debug.WriteLine("A");
+                        }
+                        viewModel.Projects[index] = project;
+                    }
+                    catch
+                    {
+                        Debug.WriteLine("Error making Bitmap");
+                    }
+
+                    ProjectList.SelectedIndex = index;
                 }
             }
         }
