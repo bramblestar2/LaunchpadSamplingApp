@@ -4,15 +4,19 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.Converters;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.VisualTree;
+using LaunchpadSamplingApp.Components;
 using LaunchpadSamplingApp.CustomArgs;
 using LaunchpadSamplingApp.Helpers;
 using LaunchpadSamplingApp.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace LaunchpadSamplingApp.Views
 {
@@ -87,8 +91,19 @@ namespace LaunchpadSamplingApp.Views
                                 string fullpath = files[0].TryGetLocalPath();
                                 string folderpath = Path.GetDirectoryName(fullpath);
                                 string filename = Path.GetFileName(fullpath);
+                                string imageext = string.Empty;
 
-                                OpenProjectEventArgs openArg = new OpenProjectEventArgs(OpenClickEvent, folderpath, filename);
+                                foreach (var item in Directory.EnumerateFiles(folderpath))
+                                {
+                                    if (Path.GetFileNameWithoutExtension(item) == "icon")
+                                    {
+                                        imageext = Path.GetExtension(item);
+                                        break;
+                                    }
+                                    Debug.WriteLine(item);
+                                };
+
+                                OpenProjectEventArgs openArg = new OpenProjectEventArgs(OpenClickEvent, folderpath, filename, ProjectStatus.UNASSIGNED);
                                 RaiseEvent(openArg);
                             }
 
@@ -106,49 +121,88 @@ namespace LaunchpadSamplingApp.Views
         }
 
 
-        private void ItemStatusFlyoutClosed(object? sender, EventArgs e)
+        private void RemoveProjectFromList(object? sender, RoutedEventArgs e)
         {
+            if (sender is Button button)
+            {
+                int index = ProjectList.SelectedIndex;
+
+                ProjectsJsonManager.RemoveProjectInList(index);
+                if (this.DataContext is not null && this.DataContext is StartMenuViewModel)
+                {
+                    viewModel.Projects.RemoveAt(index);
+                }
+            }
         }
 
 
-        private void ItemStatusSelectionChanged(object? sender, SelectionChangedEventArgs e) 
+        private void SaveProjectState(object? sender, RoutedEventArgs e)
         {
-            int index = ProjectList.SelectedIndex;
-            var item = ProjectsJsonManager.JsonProjectList[index];
-            var combobox = sender as ComboBox;
-                
-            if (combobox is not null)
+            if (sender is Button button)
             {
-                var statusItem = combobox.Items[combobox.SelectedIndex] as ComboBoxItem;
-                
-                item.Status = (ProjectStatus)ProjectFile.StringToProjectStatus((string)statusItem.Content);
+                bool updateList = false;
 
-                ProjectsJsonManager.SetProjectFile(index, item);
+                int index = ProjectList.SelectedIndex;
+                var item = ProjectsJsonManager.JsonProjectList[index];
+                string? imagePath = null;
 
-                if (this.DataContext is not null && this.DataContext is StartMenuViewModel)
+                if (button.Parent is not null && button.Parent is StackPanel panel)
                 {
-                    viewModel.Projects[index] = ProjectsJsonManager.JsonProjectList[index];
-
-                    var project = viewModel.Projects.FirstOrDefault(i => i.Name == item.Name);
-                    //
-                    //project.Status = item.Status;
-
-                    try
+                    
+                    if (panel.Children[0] is Grid grid)
                     {
-                        if (project.ImagePath != string.Empty &&
-                            project.Image == null)
+                        if (grid.Children[1] is ComboBox status)
                         {
-                            project.Image = new Bitmap(project.ImagePath);
-                            Debug.WriteLine("A");
+                            if (status.SelectedItem is ComboBoxItem statusItem)
+                            {
+
+                                if (statusItem.Content is string textStatus)
+                                    item.Status = (ProjectStatus)ProjectFile.StringToProjectStatus(textStatus);
+
+                                updateList = true;
+                            }
                         }
-                        viewModel.Projects[index] = project;
-                    }
-                    catch
-                    {
-                        Debug.WriteLine("Error making Bitmap");
                     }
 
-                    ProjectList.SelectedIndex = index;
+
+                    if (panel.Children[2] is Grid grid2)
+                    {
+                        if (grid2.Children[0] is ImageGetter imageGetter)
+                        {
+                            if (imageGetter.ImagePath is string image)
+                            {
+                                imagePath = image;
+
+                                updateList = true;
+                            }
+                        }
+                    }
+                }
+
+                if (updateList)
+                {
+                    ProjectsJsonManager.SetProjectFile(index, item);
+
+                    if (imagePath is not null)
+                    {
+                        foreach (var file in Directory.EnumerateFiles(viewModel.Projects[index].Path))
+                        {
+                            if (Path.GetFileNameWithoutExtension(file) == "icon")
+                                File.Delete(file);
+                        }
+                        string newFileName = viewModel.Projects[index].Path + "\\icon" +
+                                             Path.GetExtension(imagePath);
+                        File.Copy(imagePath, newFileName, true);
+                    }
+
+                    if (this.DataContext is not null && this.DataContext is StartMenuViewModel)
+                    {
+                        viewModel.Projects[index] = ProjectsJsonManager.JsonProjectList[index];
+
+                        var project = viewModel.Projects.FirstOrDefault(i => i.Name == item.Name);
+
+                        ProjectList.SelectedIndex = index;
+                    }
                 }
             }
         }

@@ -42,6 +42,13 @@ namespace LaunchpadSamplingApp.Helpers
         }
 
 
+        static public void RemoveProjectInList(int index)
+        {
+            if (index >= 0 && index < _jsonProjectList.Count)
+                JsonProjectList.RemoveAt(index);
+        }
+
+
         static private void RemoveNonexistentProjects()
         {
             for (int i = 0; i < JsonProjectList.Count; i++)
@@ -138,16 +145,6 @@ namespace LaunchpadSamplingApp.Helpers
                 for (int i = 0; i < JsonProjectList.Count; i++)
                 {
                     ProjectFile project = JsonProjectList[i];
-                    
-                    try
-                    {
-                        if (project.ImagePath != string.Empty && project.ImagePath != null)
-                            project.Image = new Bitmap(project.ImagePath);
-                    }
-                    catch
-                    {
-                        Debug.WriteLine("Error making Bitmap");
-                    }
 
                     if (File.Exists(project.Path + "\\" + project.Name))
                         list.Add(project);
@@ -181,9 +178,6 @@ namespace LaunchpadSamplingApp.Helpers
         public string Path { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public ProjectStatus Status { get; set; }
-        [JsonIgnore]
-        public Bitmap? Image { get; set; }
-        public string ImagePath { get; set; }
 
         static public ProjectStatus? StringToProjectStatus(string status)
         {

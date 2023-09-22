@@ -1,8 +1,12 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Platform;
 using Avalonia.Interactivity;
+using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using LaunchpadSamplingApp.Helpers;
 using LaunchpadSamplingApp.ViewModels;
+using Microsoft.CodeAnalysis;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -29,6 +33,16 @@ namespace LaunchpadSamplingApp.Views
         {
             add => AddHandler(CreateClickEvent, value);
             remove => RemoveHandler(CreateClickEvent, value);
+        }
+
+
+        public static readonly RoutedEvent<RoutedEventArgs> BackClickEvent =
+            RoutedEvent.Register<StartMenu, RoutedEventArgs>(nameof(BackClick), RoutingStrategies.Bubble);
+
+        public event EventHandler<RoutedEventArgs> BackClick
+        {
+            add => AddHandler(BackClickEvent, value);
+            remove => RemoveHandler(BackClickEvent, value);
         }
 
         #endregion
@@ -68,8 +82,12 @@ namespace LaunchpadSamplingApp.Views
                 {
                     Name = $"{name}.disableton",
                     Path = $"{path}\\{name}",
-                    ImagePath = _imagePath
                 };
+
+                if (_imagePath is not null)
+                {
+                    File.Copy(_imagePath, jsonProject.Path + "\\icon" + Path.GetExtension(_imagePath));
+                }
 
                 ProjectsJsonManager.AddProjectFile(jsonProject);
 
@@ -93,6 +111,13 @@ namespace LaunchpadSamplingApp.Views
             {
                 ProjectPathBox.Text = folder[0].TryGetLocalPath();
             }
+        }
+
+
+        private void BackButtonClick(object? sender, RoutedEventArgs e)
+        {
+            RoutedEventArgs args = new RoutedEventArgs(BackClickEvent);
+            RaiseEvent(args);
         }
 
 

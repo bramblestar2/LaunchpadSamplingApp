@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Platform;
 using LaunchpadSamplingApp.Helpers;
+using System.Diagnostics;
 
 namespace LaunchpadSamplingApp.Views;
 

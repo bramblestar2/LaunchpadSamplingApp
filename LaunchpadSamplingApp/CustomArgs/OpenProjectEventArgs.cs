@@ -1,4 +1,5 @@
 ﻿using Avalonia.Interactivity;
+using LaunchpadSamplingApp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace LaunchpadSamplingApp.CustomArgs
     {
         public readonly string FolderLocation;
         public readonly string FileName;
+        public readonly ProjectStatus Status;
 
-        public OpenProjectEventArgs(RoutedEvent e, string loc, string filename) : base(e)
+        public OpenProjectEventArgs(RoutedEvent e, string loc, string filename, ProjectStatus projectStatus) : base(e)
         { 
             FolderLocation = loc;
             FileName = filename;
+            Status = projectStatus;
         }
     }
 }

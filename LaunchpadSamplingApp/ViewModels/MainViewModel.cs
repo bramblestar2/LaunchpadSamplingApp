@@ -45,12 +45,13 @@ public partial class MainViewModel : ViewModelBase
         
         _startMenu.OpenClick += (s, e) =>
         {
-            Debug.WriteLine($"{e.FolderLocation} | {e.FileName}");
-
+            //Debug.WriteLine($"{e.FolderLocation} | {e.FileName}");
+            
             ProjectFile file = new ProjectFile()
             {
                 Name = e.FileName,
-                Path = e.FolderLocation
+                Path = e.FolderLocation,
+                Status = e.Status,
             };
 
             ProjectsJsonManager.AddProjectFile(file);
@@ -64,6 +65,11 @@ public partial class MainViewModel : ViewModelBase
         _newProjectView.CreateClick += (s, e) =>
         {
             View = _projectView;
+        };
+
+        _newProjectView.BackClick += (s, e) =>
+        {
+            View = _startMenu;
         };
     }
 

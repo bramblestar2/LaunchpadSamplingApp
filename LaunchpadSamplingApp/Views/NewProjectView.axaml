@@ -73,6 +73,12 @@
               HorizontalContentAlignment="Center"
               ClickMode="Press"
               Click="CreateProject"/>
+      
+      <Button Content="Back"
+              HorizontalAlignment="Left"
+              HorizontalContentAlignment="Center"
+              ClickMode="Press"
+              Click="BackButtonClick"/>
     </StackPanel>
   </Grid>
 </UserControl>

@@ -3,6 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LaunchpadSamplingApp.ViewModels"
+             xmlns:components="using:LaunchpadSamplingApp.Components"
+             xmlns:local="clr-namespace:LaunchpadSamplingApp.Views"
              xmlns:projectfile="clr-namespace:LaunchpadSamplingApp.Helpers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:StartMenuViewModel"
@@ -13,78 +15,8 @@
   </UserControl.DataContext>
 
   <UserControl.Resources>
+    <projectfile:ProjectIconConverter x:Key="projectIconConverter"/>
   </UserControl.Resources>
-  <UserControl.Styles>
-    <Styles>
-      <Style Selector="CheckBox.Test">
-        <Setter Property="Background" Value="#CC555555"/>
-        <Setter Property="Foreground" Value="#F0F0F0"/>
-        
-        <Setter Property="Template">
-          <ControlTemplate>
-            <Border Background="{TemplateBinding Background}"
-                    Width="{TemplateBinding Width}"
-                    Height="{TemplateBinding Height}"
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    CornerRadius="2">
-
-              <Grid HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                <TextBlock Text="{TemplateBinding Content}"
-                           Foreground="{TemplateBinding Foreground}"/>
-              </Grid>
-              
-            </Border>
-          </ControlTemplate>
-        </Setter>
-
-        <Style Selector="^:pointerover">
-          <Setter Property="Background" Value="#CC333333"/>
-        </Style>
-
-        <Style Selector="^:checked,
-                         ^:pressed">
-          <Setter Property="Background" Value="#CC224422"/>
-        </Style>
-
-        <Style Selector="^:checked">
-          <Setter Property="Background" Value="#CC336633"/>
-
-          <Style.Animations>
-            <Animation Duration="0:0:0.1"
-                       FillMode="Forward"
-                       Easing="CubicEaseIn">
-              <KeyFrame Cue="100%">
-                <Setter Property="ScaleTransform.ScaleX" Value="0.9"/>
-                <Setter Property="ScaleTransform.ScaleY" Value="0.9"/>
-              </KeyFrame>
-            </Animation>
-          </Style.Animations>
-        </Style>
-
-        <Style Selector="^:normal,
-                         ^:pressed">
-          <Setter Property="Background" Value="#CC224422"/>
-        </Style>
-
-        <Style Selector="^:unchecked">
-          <Setter Property="Background" Value="#CC555555"/>
-          
-          <Style.Animations>
-            <Animation Duration="0:0:0.2"
-                       FillMode="Forward"
-                       Easing="CubicEaseOut">
-              <KeyFrame Cue="100%">
-                <Setter Property="ScaleTransform.ScaleX" Value="1"/>
-                <Setter Property="ScaleTransform.ScaleY" Value="1"/>
-              </KeyFrame>
-            </Animation>
-          </Style.Animations>
-        </Style>
-        
-      </Style>
-    </Styles>
-  </UserControl.Styles>
   
   <Border Background="Transparent">
     <Grid ColumnDefinitions="300,*">
@@ -128,9 +60,13 @@
             <DataTemplate DataType="{x:Type projectfile:ProjectFile}">
               <Border Background="Transparent">
                 <Grid ColumnDefinitions="50,Auto,*">
-                  
-                  
-                  <Image Source="{Binding Image}" Grid.Column="0" Width="50" Height="50"/>
+
+
+                  <Image Source="{Binding Path, 
+                                 Converter={StaticResource projectIconConverter}}"
+                         Grid.Column="0"
+                         Width="50"
+                         Height="50"/>
                   <Grid Grid.Column="1"
                         RowDefinitions="*,*"
                         Margin="20,0" 
@@ -146,19 +82,43 @@
                 </Grid>
 
                 <Border.ContextFlyout>
-                  <Flyout ShowMode="TransientWithDismissOnPointerMoveAway"
-                          Closed="ItemStatusFlyoutClosed">
-                    <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
-                      <TextBlock Grid.Column="0"
-                                 Text="Status"
-                                 VerticalAlignment="Center"/>
-                      <ComboBox SelectionChanged="ItemStatusSelectionChanged"
-                                Grid.Column="1">
-                        <ComboBoxItem Content="Completed"/>
-                        <ComboBoxItem Content="Work In Progress"/>
-                        <ComboBoxItem Content="Abandoned"/>
-                      </ComboBox>
-                    </Grid>
+                  <Flyout ShowMode="Standard">
+                    <StackPanel>
+                      <Grid ColumnDefinitions="Auto,*"
+                            RowDefinitions="Auto,Auto"
+                            Name="StatusBox">
+                        <TextBlock Grid.Column="0"
+                                   Text="Status"
+                                   VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  Name="StatusBoxComboBox">
+                          <ComboBoxItem Content="Completed"/>
+                          <ComboBoxItem Content="Work In Progress"/>
+                          <ComboBoxItem Content="Abandoned"/>
+                        </ComboBox>
+                      </Grid>
+
+
+                      <Separator/>
+
+                      <Grid>
+                        <components:ImageGetter Width="200"
+                                                Height="200"/>
+                      </Grid>
+
+                      <Separator/>
+
+                      <Button Content="Remove from list"
+                              HorizontalAlignment="Center"
+                              ClickMode="Press"
+                              Click="RemoveProjectFromList"/>
+                      <Button Content="Save"
+                              HorizontalAlignment="Center"
+                              ClickMode="Press"
+                              Name="SaveButton"
+                              Click="SaveProjectState"/>
+                    </StackPanel>
                   </Flyout>
                 </Border.ContextFlyout>
               </Border>
